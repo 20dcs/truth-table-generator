@@ -7,20 +7,18 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   Stack,
 } from "@chakra-ui/react";
 
-function TruthTable() {
+function TruthTable({ expressionArray }) {
   return (
     <Stack mt={4}>
       <Table size="md" colorScheme="teal" alignSelf="center">
-        <TableCaption>Truth Table</TableCaption>
         <Thead>
           <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
-            <Th isNumeric>multiply by</Th>
+            <Th>{expressionArray[0]}</Th>
+            <Th>{expressionArray[2]}</Th>
+            <Th>{expressionArray[1]}</Th>
           </Tr>
         </Thead>
         <Tbody>

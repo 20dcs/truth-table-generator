@@ -24,9 +24,9 @@
   "plugins": ["prettier", "react", "jest"],
   "rules": {
     "semi": ["warn", "always"],
-    "prettier/prettier": "warn"
-    // "react/prop-types": "warn",
-    // "no-unused-vars": "warn"
+    "prettier/prettier": "warn",
+    "react/prop-types": "warn",
+    "no-unused-vars": "warn"
   },
   "settings": {
     "react": {
