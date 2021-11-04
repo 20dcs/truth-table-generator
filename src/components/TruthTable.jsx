@@ -36,7 +36,10 @@ function TruthTable({
             {tableHeaders.map((tableHeader, i) => {
               return <TruthTableHeader key={i} tableHeader={tableHeader} />;
             })}
-            <Th fontSize={{ base: "2xl", md: "2xl", lg: "3xl" }}>
+            <Th
+              color={"white"}
+              fontSize={{ base: "2xl", md: "2xl", lg: "3xl" }}
+            >
               {expression}
             </Th>
           </Tr>

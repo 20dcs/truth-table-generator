@@ -135,7 +135,7 @@ function Home() {
     <Stack spacing={3} alignItems="center">
       <Text
         m={4}
-        bgGradient="linear(to-br, #c31432, #421166)"
+        bgGradient="linear(to-r, #80D0C7, #0093E9)"
         bgClip="text"
         fontSize={{ base: "4xl", md: "4xl", lg: "6xl" }}
         fontWeight="extrabold"

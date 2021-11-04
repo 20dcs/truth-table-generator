@@ -7,7 +7,7 @@ function App() {
     <Box
       minH={"100vh"}
       className="App"
-      bgGradient="linear(to bottom right, #8A2387, #E94057)"
+      bgGradient="linear(to bottom right, #904e95, #e96443)"
     >
       <Home />
     </Box>

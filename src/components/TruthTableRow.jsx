@@ -15,20 +15,24 @@ export const TruthTableRow = ({ tableRow, expressionSolution }) => {
     <Tr>
       {tableRow.map((tableData, i) => {
         return tableData ? (
-          <Td color={"green"} key={i}>
+          <Td color={"green.200"} key={i}>
             T
           </Td>
         ) : (
-          <Td color={"red"} key={i}>
+          <Td color={"blue.200"} key={i}>
             F
           </Td>
         );
       })}
 
       {expressionSolution ? (
-        <Td color={"green"}>T</Td>
+        <Td textAlign="center" color={"green.100"}>
+          T
+        </Td>
       ) : (
-        <Td color={"red"}>F</Td>
+        <Td textAlign="center" color={"blue.100"}>
+          F
+        </Td>
       )}
     </Tr>
   );
