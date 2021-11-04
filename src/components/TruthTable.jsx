@@ -1,4 +1,6 @@
 import React from "react";
+import { TruthTableHeader } from "./TruthTableHeader";
+import { TruthTableRow } from "./TruthTableRow";
 import {
   Table,
   Thead,
@@ -10,41 +12,47 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-function TruthTable({ expressionArray }) {
+function TruthTable({
+  tableHeaders,
+  tableRows,
+  expression,
+  expressionSolutions,
+}) {
+  const rowLength = [];
+  for (let i = 0; i < Math.pow(2, tableHeaders.length); ++i) {
+    rowLength.push("F");
+  }
+
   return (
     <Stack mt={4}>
-      <Table size="md" colorScheme="teal" alignSelf="center">
+      <Table
+        size="lg"
+        fontSize={{ base: "2xl", md: "2xl", lg: "2xl" }}
+        colorScheme="teal"
+        alignSelf="center"
+      >
         <Thead>
           <Tr>
-            <Th>{expressionArray[0]}</Th>
-            <Th>{expressionArray[2]}</Th>
-            <Th>{expressionArray[1]}</Th>
+            {tableHeaders.map((tableHeader, i) => {
+              return <TruthTableHeader key={i} tableHeader={tableHeader} />;
+            })}
+            <Th fontSize={{ base: "2xl", md: "2xl", lg: "3xl" }}>
+              {expression}
+            </Th>
           </Tr>
         </Thead>
+
         <Tbody>
-          <Tr>
-            <Td>inches</Td>
-            <Td>millimetres (mm)</Td>
-            <Td isNumeric>25.4</Td>
-          </Tr>
-          <Tr>
-            <Td>feet</Td>
-            <Td>centimetres (cm)</Td>
-            <Td isNumeric>30.48</Td>
-          </Tr>
-          <Tr>
-            <Td>yards</Td>
-            <Td>metres (m)</Td>
-            <Td isNumeric>0.91444</Td>
-          </Tr>
+          {tableRows.map((tableRow, i) => {
+            return (
+              <TruthTableRow
+                key={i}
+                tableRow={tableRow}
+                expressionSolution={expressionSolutions[i]}
+              />
+            );
+          })}
         </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
-            <Th isNumeric>multiply by</Th>
-          </Tr>
-        </Tfoot>
       </Table>
     </Stack>
   );

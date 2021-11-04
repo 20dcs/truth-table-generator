@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Input,
   Stack,
@@ -9,37 +9,127 @@ import {
 } from "@chakra-ui/react";
 import TruthTable from "./TruthTable";
 
-function Home() {
-  const [expression, setExpression] = useState();
-  const [expressionArray, setExpressionArray] = useState([]);
+import { permute, remove, parse, replaceHTML } from "../components/helper";
+import { ErrorMessage } from "./ErrorMessage";
 
-  const handleChange = (event) => {
-    setExpression(event.target.value);
+function Home() {
+  const [value, setValue] = useState("");
+  const [emptyValue, setEmptyValue] = useState();
+  const [invalidValue, setInvalidValue] = useState();
+  const [tableHeaders, setTableHeaders] = useState([]);
+  const [tableRows, setTableRows] = useState([]);
+  const [expressionSolutions, setExpressionSolutions] = useState([]);
+  const [errorObject, setErrorObject] = useState({
+    error: "1",
+    value: "1",
+    index: -1,
+  });
+
+  const onValueChange = (e) => {
+    let htmlValue = e.target.value;
+    htmlValue = replaceHTML(htmlValue);
+    setValue(htmlValue);
+    e.target.value = htmlValue;
   };
-  const generateTable = () => {
-    const temp = expression.split(" ");
-    setExpressionArray(temp);
-    console.log(expressionArray);
-    if (expressionArray.length < 3) {
-      console.error("Invalid expression");
+
+  useEffect(() => {
+    if (value.length === 0) {
+      setEmptyValue(false);
+      return;
     }
-    switch (expressionArray[1]) {
-      case "and":
-        console.log("and");
-        break;
-      case "or":
-        console.log("or");
-        break;
-      case "implies":
-        console.log("implies");
-        break;
-      case "<=>":
-        console.log("double implies");
-        break;
-      default:
-        console.error(`Invalid operation`);
+    setEmptyValue(true);
+    try {
+      if (/(∧|∨|¬)$|^(∧|∨|¬)/g.test(value)) {
+        console.error("The operator is missing an operand.");
+      }
+
+      if (/[/|]/g.test(value)) {
+        console.error("The character | shouldn't be here.");
+      }
+
+      if (/[&]/g.test(value)) {
+        console.error("The character & shouldn't be here.");
+      }
+    } catch (e) {
+      if (e === "The operator is missing an operand.") {
+        const index = value.search(/(∧|∨|¬)$|^(∧|∨|¬)/g);
+        setErrorObject({ error: e, value: value, index: index });
+      } else if (e === "The character | shouldn't be here.") {
+        setErrorObject({ error: e, value: value, index: value.indexOf("|") });
+      } else if (e === "The character & shouldn't be here.") {
+        setErrorObject({ error: e, value: value, index: value.indexOf("&") });
+      }
+      setInvalidValue(true);
+      return;
     }
-  };
+
+    let operandArray = [];
+    let operand = "";
+    for (const c of value) {
+      if (c === "|" || c === "&" || c === "¬" || c === "(" || c === ")") {
+        // pass;
+      } else if (c === "∨" || c === "∧") {
+        operand = "";
+      } else {
+        operand += c;
+
+        if (operand.length > 1) {
+          operandArray.pop();
+        }
+
+        if (operandArray.includes(operand)) {
+          operandArray.push("");
+        } else {
+          operandArray.push(operand);
+        }
+      }
+    }
+
+    operandArray = remove(operandArray, "");
+    const tableRows = permute(operandArray.length);
+
+    const expressionSolutionArray = [];
+    for (const boolArray of tableRows) {
+      let boolStr;
+      let bool;
+      let evalString = value;
+
+      evalString = evalString.replaceAll("∨", "||");
+      evalString = evalString.replaceAll("∧", "&&");
+      evalString = evalString.replaceAll("¬", "!");
+
+      for (let i = 0; i < operandArray.length; ++i) {
+        bool = boolArray[i];
+        if (bool) {
+          boolStr = "1";
+        } else {
+          boolStr = "0";
+        }
+        evalString = evalString.replaceAll(
+          new RegExp("\\b" + operandArray[i] + "\\b", "g"),
+          boolStr
+        );
+      }
+      try {
+        if (/[^10|&!()]/.test(evalString)) {
+          throw SyntaxError;
+        }
+        const expression = parse(evalString);
+        if (expression === 1 || expression) {
+          expressionSolutionArray.push(true);
+        } else if (expression === 0 || expression) {
+          expressionSolutionArray.push(false);
+        }
+        setInvalidValue(false);
+      } catch (e) {
+        setErrorObject({ error: "Invalid syntax.", value: value, index: -1 });
+        setInvalidValue(true);
+      }
+    }
+    setTableHeaders(operandArray);
+    setTableRows(tableRows);
+    setExpressionSolutions(expressionSolutionArray);
+  }, [value]);
 
   return (
     <Stack spacing={3} alignItems="center">
@@ -47,28 +137,37 @@ function Home() {
         m={4}
         bgGradient="linear(to-br, #c31432, #421166)"
         bgClip="text"
-        fontSize="6xl"
+        fontSize={{ base: "4xl", md: "4xl", lg: "6xl" }}
         fontWeight="extrabold"
       >
         Truth Table Generator
       </Text>
-      <InputGroup maxW={"100vh"} size="md">
-        <Input
-          value={expression}
-          onChange={handleChange}
-          variant="filled"
-          placeholder="Enter boolean operations"
-          colorScheme="white"
-        />
-        <InputRightElement width="5.0rem">
-          <Button bgColor="teal.300" size="md" onClick={() => generateTable()}>
-            Submit
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-      {expressionArray.length > 2 ? (
-        <TruthTable expressionArray={expressionArray} />
-      ) : null}
+      <Input
+        isInvalid={invalidValue}
+        width={{ base: "1xl", md: "4xl", lg: "6xl" }}
+        value={value}
+        onChange={onValueChange}
+        variant="filled"
+        fontSize={{ base: "large", md: "large", lg: "larger" }}
+        size="lg"
+        placeholder="Enter boolean operations"
+        colorScheme="white"
+      />
+
+      {!emptyValue ? (
+        ""
+      ) : invalidValue ? (
+        <ErrorMessage errorObject={errorObject} />
+      ) : (
+        <Stack className="truth-table-container">
+          <TruthTable
+            tableHeaders={tableHeaders}
+            tableRows={tableRows}
+            expression={value}
+            expressionSolutions={expressionSolutions}
+          />
+        </Stack>
+      )}
     </Stack>
   );
 }
