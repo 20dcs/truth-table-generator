@@ -14,10 +14,22 @@ export const TruthTableRow = ({ tableRow, expressionSolution }) => {
   return (
     <Tr>
       {tableRow.map((tableData, i) => {
-        return tableData ? <Td key={i}>T</Td> : <Td key={i}>F</Td>;
+        return tableData ? (
+          <Td color={"green"} key={i}>
+            T
+          </Td>
+        ) : (
+          <Td color={"red"} key={i}>
+            F
+          </Td>
+        );
       })}
 
-      {expressionSolution ? <Td>T</Td> : <Td>F</Td>}
+      {expressionSolution ? (
+        <Td color={"green"}>T</Td>
+      ) : (
+        <Td color={"red"}>F</Td>
+      )}
     </Tr>
   );
 };
