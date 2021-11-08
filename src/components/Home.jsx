@@ -4,9 +4,24 @@ import {
   Stack,
   Text,
   Button,
+  UnorderedList,
+  ListItem,
+  Divider,
+  IconButton,
   InputRightElement,
   InputGroup,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Grid,
 } from "@chakra-ui/react";
+import { InfoIcon } from "@chakra-ui/icons";
+
 import TruthTable from "./TruthTable";
 
 import { permute, remove, parse, replaceHTML } from "../components/helper";
@@ -131,6 +146,7 @@ function Home() {
     setExpressionSolutions(expressionSolutionArray);
   }, [value]);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Stack spacing={3} alignItems="center">
       <Text
@@ -142,17 +158,54 @@ function Home() {
       >
         Truth Table Generator
       </Text>
-      <Input
-        isInvalid={invalidValue}
-        width={{ base: "1xl", md: "4xl", lg: "6xl" }}
-        value={value}
-        onChange={onValueChange}
-        variant="filled"
-        fontSize={{ base: "large", md: "large", lg: "larger" }}
-        size="lg"
-        placeholder="Enter boolean operations"
-        colorScheme="white"
-      />
+
+      <Stack display="inline" isInline>
+        <Input
+          isInvalid={invalidValue}
+          width={{ base: "1xl", md: "4xl", lg: "6xl" }}
+          value={value}
+          onChange={onValueChange}
+          variant="filled"
+          fontSize={{ base: "large", md: "large", lg: "larger" }}
+          size="lg"
+          placeholder="Enter boolean operations"
+          colorScheme="white"
+        />
+
+        <IconButton
+          variant="unstyled"
+          size="lg"
+          isRound
+          onClick={onOpen}
+          icon={<InfoIcon color="white" w={"8"} h={"8"} />}
+        />
+
+        <Modal
+          colorScheme={"gray"}
+          isCentered
+          onClose={onClose}
+          isOpen={isOpen}
+          motionPreset="slideInBottom"
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader fontSize={"24"}>Instructions</ModalHeader>
+            <Divider width={"90%"} alignSelf="center" />
+            <ModalCloseButton />
+            <ModalBody fontSize={"20"}>
+              This app generates a Truth Table for logical or boolean
+              expressions. <br />
+              For example, the formula p∧q could be written as p∨q. Enter an
+              expression in the input box to get started. Valid operators:
+              <UnorderedList>
+                <ListItem>And: && </ListItem>
+                <ListItem>Or: || </ListItem>
+                <ListItem>Negation: !</ListItem>
+              </UnorderedList>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </Stack>
 
       {!emptyValue ? (
         ""
