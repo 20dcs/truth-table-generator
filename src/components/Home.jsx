@@ -212,7 +212,7 @@ function Home() {
       ) : invalidValue ? (
         <ErrorMessage errorObject={errorObject} />
       ) : (
-        <Stack className="truth-table-container">
+        <Stack className="truth-table-container" maxW="-webkit-fill-available">
           <TruthTable
             tableHeaders={tableHeaders}
             tableRows={tableRows}
