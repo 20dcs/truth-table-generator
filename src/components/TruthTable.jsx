@@ -1,16 +1,7 @@
 import React from "react";
 import { TruthTableHeader } from "./TruthTableHeader";
 import { TruthTableRow } from "./TruthTableRow";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  Stack,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Box } from "@chakra-ui/react";
 
 function TruthTable({
   tableHeaders,
@@ -24,12 +15,17 @@ function TruthTable({
   }
 
   return (
-    <Stack mt={4}>
+    <Box
+      mt={4}
+      alignSelf="center"
+      overflowX="auto"
+      minW={{ base: "sm", md: "sm", lg: "lg" }}
+      maxW={{ base: "60%", md: "80%", lg: "100%" }}
+    >
       <Table
         size="lg"
-        fontSize={{ base: "2xl", md: "2xl", lg: "2xl" }}
+        fontSize={{ base: "1xl", md: "2xl", lg: "2xl" }}
         colorScheme="teal"
-        alignSelf="center"
       >
         <Thead>
           <Tr>
@@ -38,7 +34,7 @@ function TruthTable({
             })}
             <Th
               color={"white"}
-              fontSize={{ base: "2xl", md: "2xl", lg: "3xl" }}
+              fontSize={{ base: "1xl", md: "2xl", lg: "3xl" }}
             >
               {expression}
             </Th>
@@ -57,7 +53,7 @@ function TruthTable({
           })}
         </Tbody>
       </Table>
-    </Stack>
+    </Box>
   );
 }
 

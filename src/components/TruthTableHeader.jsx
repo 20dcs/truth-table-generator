@@ -12,7 +12,7 @@ import {
 
 export const TruthTableHeader = ({ tableHeader }) => {
   return (
-    <Th color={"white"} fontSize={{ base: "2xl", md: "2xl", lg: "3xl" }}>
+    <Th color={"white"} fontSize={{ base: "1xl", md: "2xl", lg: "3xl" }}>
       {tableHeader}
     </Th>
   );
