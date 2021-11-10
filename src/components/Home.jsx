@@ -20,7 +20,7 @@ import {
   ModalCloseButton,
   Grid,
 } from "@chakra-ui/react";
-import { InfoIcon } from "@chakra-ui/icons";
+import { FaInfoCircle } from "react-icons/fa";
 
 import TruthTable from "./TruthTable";
 
@@ -173,11 +173,11 @@ function Home() {
         />
 
         <IconButton
+          size={"sm"}
           variant="unstyled"
-          size="lg"
           isRound
           onClick={onOpen}
-          icon={<InfoIcon color="white" w={"8"} h={"8"} />}
+          icon={<FaInfoCircle size={32} />}
         />
 
         <Modal
