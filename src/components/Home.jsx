@@ -3,27 +3,20 @@ import {
   Input,
   Stack,
   Text,
-  Button,
   UnorderedList,
   ListItem,
   Divider,
   IconButton,
-  InputRightElement,
-  InputGroup,
   useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Grid,
 } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
-
 import TruthTable from "./TruthTable";
-
 import { permute, remove, parse, replaceHTML } from "../components/helper";
 import { ErrorMessage } from "./ErrorMessage";
 
@@ -46,12 +39,11 @@ function Home() {
     setValue(htmlValue);
     e.target.value = htmlValue;
   };
-
   useEffect(() => {
     if (value.length === 0) {
       setEmptyValue(false);
       return;
-    }
+    } 
     setEmptyValue(true);
     try {
       if (/(∧|∨|¬)$|^(∧|∨|¬)/g.test(value)) {

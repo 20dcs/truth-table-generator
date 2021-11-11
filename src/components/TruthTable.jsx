@@ -12,7 +12,7 @@ function TruthTable({
   const rowLength = [];
   for (let i = 0; i < Math.pow(2, tableHeaders.length); ++i) {
     rowLength.push("F");
-  }
+  } 
 
   return (
     <Box

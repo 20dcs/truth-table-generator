@@ -1,13 +1,6 @@
 import React from "react";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  Stack,
+Th, 
 } from "@chakra-ui/react";
 
 export const TruthTableHeader = ({ tableHeader }) => {
@@ -17,3 +10,4 @@ export const TruthTableHeader = ({ tableHeader }) => {
     </Th>
   );
 };
+ 

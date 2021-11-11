@@ -12,7 +12,7 @@ export const ErrorMessage = ({ errorObject }) => {
   console.log("index: ", index);
   console.log(array);
   return (
-    <>
+    <> 
       <div>
         {array[0]}
         <div>{operator}</div>

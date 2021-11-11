@@ -1,13 +1,7 @@
 import React from "react";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
   Tr,
-  Th,
   Td,
-  Stack,
 } from "@chakra-ui/react";
 
 export const TruthTableRow = ({ tableRow, expressionSolution }) => {
