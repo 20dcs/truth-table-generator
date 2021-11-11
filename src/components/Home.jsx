@@ -169,7 +169,7 @@ function Home() {
           variant="unstyled"
           isRound
           onClick={onOpen}
-          icon={<FaInfoCircle size={32} />}
+          icon={<FaInfoCircle size={32} color="white" />}
         />
 
         <Modal
