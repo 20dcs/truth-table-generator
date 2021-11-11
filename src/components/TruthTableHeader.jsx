@@ -1,7 +1,5 @@
 import React from "react";
-import {
-Th, 
-} from "@chakra-ui/react";
+import { Th } from "@chakra-ui/react";
 
 export const TruthTableHeader = ({ tableHeader }) => {
   return (
@@ -10,4 +8,3 @@ export const TruthTableHeader = ({ tableHeader }) => {
     </Th>
   );
 };
- 

@@ -43,7 +43,7 @@ function Home() {
     if (value.length === 0) {
       setEmptyValue(false);
       return;
-    } 
+    }
     setEmptyValue(true);
     try {
       if (/(∧|∨|¬)$|^(∧|∨|¬)/g.test(value)) {

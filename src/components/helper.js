@@ -7,7 +7,7 @@ export const permute = (n) => {
     if (bin.length < n) {
       const zeros = "0".repeat(n - bin.length);
       bin = zeros + bin;
-    } 
+    }
     for (const c of bin) {
       if (c === "1") {
         boolArray.push(true);

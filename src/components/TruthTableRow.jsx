@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  Tr,
-  Td,
-} from "@chakra-ui/react";
+import { Tr, Td } from "@chakra-ui/react";
 
 export const TruthTableRow = ({ tableRow, expressionSolution }) => {
   return (

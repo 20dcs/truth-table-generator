@@ -12,7 +12,7 @@ import {
 import { FaGithub } from "react-icons/fa";
 
 export default function Footer() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onOpen } = useDisclosure();
 
   return (
     <Box
