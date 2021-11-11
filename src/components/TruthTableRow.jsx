@@ -6,11 +6,11 @@ export const TruthTableRow = ({ tableRow, expressionSolution }) => {
     <Tr>
       {tableRow.map((tableData, i) => {
         return tableData ? (
-          <Td color={"green.200"} key={i}>
+          <Td color={"green.200"} textAlign="center" key={i}>
             T
           </Td>
         ) : (
-          <Td color={"blue.200"} key={i}>
+          <Td color={"blue.200"} textAlign="center" key={i}>
             F
           </Td>
         );

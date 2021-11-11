@@ -34,6 +34,7 @@ function TruthTable({
             })}
             <Th
               color={"white"}
+              textAlign="center"
               fontSize={{ base: "1xl", md: "2xl", lg: "3xl" }}
             >
               {expression}
