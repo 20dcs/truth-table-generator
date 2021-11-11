@@ -1,6 +1,6 @@
 # [Truth Table Generator](http://truth-table-generator.vercel.app/)
 
-A responsive Web application which generates Truth table of Boolean expressions. It is hosted with vercel.
+A responsive Web application which generates Truth table of Boolean expressions.
 
 This is a project for our univesity subject _SGP_.
 
@@ -17,9 +17,8 @@ This is a project for our univesity subject _SGP_.
 
 ## Steps for installation
 
-- Clone this repo - `git clone <url>`
-
-#### `npm / yarn start`
+- Clone this repo: `git clone <url>`
+- Start the project on localhost: `npm / yarn start`
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/36930635/141287110-ce711d51-f9ca-42fd-8a25-f8e037d3c41b.png)
