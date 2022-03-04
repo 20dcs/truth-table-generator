@@ -1,4 +1,4 @@
-# [Truth Table Generator](http://truth-table-generator.vercel.app/)
+# [Truth Table Generator](https://truth-table-generator-sgp.vercel.app/)
 
 A responsive Web application which generates Truth table of Boolean expressions.
 
